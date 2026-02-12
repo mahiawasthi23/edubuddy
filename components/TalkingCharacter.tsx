@@ -39,7 +39,7 @@ export default function TalkingCharacter({ speaking }: Props) {
 
       {/* IMAGE */}
       <Image
-        src="/edubuddy_close.png"
+        src="/edubuddy_Close.png"
         alt="EduBuddy"
         width={200}
         height={200}
