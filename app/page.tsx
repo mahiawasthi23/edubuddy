@@ -9,12 +9,15 @@
 // import TalkingCharacter from "@/components/TalkingCharacter";
 // import LoginButton from "@/components/LoginButton";
 
+
+// import StorySelector from "@/components/StorySelector";
+
 // import { getAIReply } from "@/lib/ai";
 // import { addMessage, getHistory, clearHistory } from "@/lib/memory";
 
 // import { speak, disableSpeak, enableSpeak } from "@/components/Speaker";
 
-// // ================= TYPES =================
+
 // type ChatMsg = {
 //   role: "user" | "assistant";
 //   text: string;
@@ -23,7 +26,7 @@
 // export default function Home() {
 //   const { data: session, status } = useSession();
 
-//   // ================= STATES =================
+ 
 //   const [running, setRunning] = useState(false);
 
 //   const [reply, setReply] = useState(
@@ -38,23 +41,24 @@
 
 //   const [speaking, setSpeaking] = useState(false);
 
-//   // Dropdown
+ 
+//   const [mode, setMode] = useState("general");
+
 //   const [dropdownOpen, setDropdownOpen] = useState(false);
 //   const dropdownRef = useRef<HTMLDivElement>(null);
 
-//   // Image fallback
+  
 //   const [imgError, setImgError] = useState(false);
 
-//   // ================= REFS =================
 //   const busyRef = useRef(false);
 //   const warmRef = useRef(false);
 
-//   // ================= RESET IMAGE ERROR =================
+  
 //   useEffect(() => {
 //     setImgError(false);
 //   }, [session?.user?.image]);
 
-//   // ================= CLOSE DROPDOWN =================
+  
 //   useEffect(() => {
 //     function handleOutside(e: MouseEvent) {
 //       if (
@@ -72,7 +76,7 @@
 //     };
 //   }, []);
 
-//   // ================= HANDLE USER =================
+ 
 //   async function handleUser(text: string) {
 //     if (!text || !running || busyRef.current) return;
 
@@ -85,7 +89,10 @@
 //     try {
 //       setRunning(false);
 
-//       const res = await getAIReply(text, getHistory());
+   
+//       const finalText = `[Mode: ${mode}] ${text}`;
+
+//       const res = await getAIReply(finalText, getHistory());
 
 //       if (!res) throw new Error("Empty AI");
 
@@ -113,7 +120,7 @@
 //     }
 //   }
 
-//   // ================= START =================
+  
 //   function handleStart() {
 //     setRunning(false);
 
@@ -134,7 +141,7 @@
 
 //     if (!warmRef.current) {
 //       warmRef.current = true;
-//       getAIReply("hello", []).catch(() => { });
+//       getAIReply("hello", []).catch(() => {});
 //     }
 
 //     setTimeout(() => {
@@ -147,7 +154,7 @@
 //     }, 300);
 //   }
 
-//   // ================= STOP =================
+  
 //   function handleStop() {
 //     setRunning(false);
 
@@ -161,7 +168,7 @@
 //     setSessionId((v) => v + 1);
 //   }
 
-//   // ================= LOAD HISTORY =================
+ 
 //   useEffect(() => {
 //     const history = getHistory();
 
@@ -175,7 +182,7 @@
 //     }
 //   }, []);
 
-//   // ================= AUTH =================
+
 //   if (status === "loading") {
 //     return (
 //       <div className="flex items-center justify-center min-h-screen">
@@ -227,7 +234,7 @@
 //       {/* HEADER */}
 //       <header className="sticky top-0 z-50 flex justify-between items-center py-4 px-6 text-white bg-white/10 backdrop-blur-md shadow">
 
-//         <h1 className="text-xl sm:text-3xl font-extrabold text-white tracking-wide drop-shadow-[2px_2px_4px_rgba(0,0,0,0.6)] animate-bounce">
+//         <h1 className="text-xl sm:text-3xl font-extrabold text-white tracking-wide animate-bounce">
 //           📝EᵈUᵇᵘᴰᵈʸ
 //         </h1>
 
@@ -284,11 +291,12 @@
 //       {/* BODY */}
 //       <div className="flex max-w-6xl mx-auto mt-6 px-4 gap-5">
 
+//         {/* CHAT PANEL */}
 //         <aside
-//           className={`transition-all duration-300 ${showChat ? "w-72" : "w-12"
-//             } bg-white/20 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden`}
+//           className={`transition-all duration-300 ${
+//             showChat ? "w-72" : "w-12"
+//           } bg-white/20 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden`}
 //         >
-
 
 //           <button
 //             onClick={() => setShowChat(!showChat)}
@@ -303,10 +311,11 @@
 //               {chatList.map((m, i) => (
 //                 <div
 //                   key={i}
-//                   className={`p-2 rounded-xl text-sm ${m.role === "user"
-//                     ? "bg-blue-500 text-white ml-auto"
-//                     : "bg-white/80 text-gray-800"
-//                     } max-w-[85%]`}
+//                   className={`p-2 rounded-xl text-sm ${
+//                     m.role === "user"
+//                       ? "bg-blue-500 text-white ml-auto"
+//                       : "bg-white/80 text-gray-800"
+//                   } max-w-[85%]`}
 //                 >
 //                   {m.text}
 //                 </div>
@@ -323,13 +332,15 @@
 
 //         </aside>
 
+//         {/* MAIN */}
 //         <section className="flex-1">
+
+//           <StorySelector onSelect={(v) => setMode(v)} />
 
 //           <div className="bg-white/25 backdrop-blur-xl rounded-3xl shadow-2xl p-6 space-y-6">
 
 //             <TalkingCharacter speaking={speaking} />
 
-//             {/* ✅ START BUTTON SHIFTED HERE */}
 //             <EduBuddy
 //               text={reply}
 //               running={running}
@@ -364,7 +375,6 @@ import VoiceEngine from "@/components/VoiceEngine";
 import TalkingCharacter from "@/components/TalkingCharacter";
 import LoginButton from "@/components/LoginButton";
 
-// ✅ NEW IMPORT
 import StorySelector from "@/components/StorySelector";
 
 import { getAIReply } from "@/lib/ai";
@@ -372,7 +382,6 @@ import { addMessage, getHistory, clearHistory } from "@/lib/memory";
 
 import { speak, disableSpeak, enableSpeak } from "@/components/Speaker";
 
-// ================= TYPES =================
 type ChatMsg = {
   role: "user" | "assistant";
   text: string;
@@ -396,7 +405,7 @@ export default function Home() {
 
   const [speaking, setSpeaking] = useState(false);
 
-  // ✅ NEW: Learning Mode
+  // Mode
   const [mode, setMode] = useState("general");
 
   // Dropdown
@@ -406,7 +415,7 @@ export default function Home() {
   // Image fallback
   const [imgError, setImgError] = useState(false);
 
-  // ================= REFS =================
+  // Refs
   const busyRef = useRef(false);
   const warmRef = useRef(false);
 
@@ -433,6 +442,26 @@ export default function Home() {
     };
   }, []);
 
+  // ================= MODE CHANGE HANDLER =================
+  function handleModeChange(newMode: string) {
+    setMode(newMode);
+
+    let msg = "";
+
+    if (newMode === "math") msg = "Yay! Let’s play with numbers! 🔢";
+    if (newMode === "story") msg = "Wow! Story time! 📖 Let’s imagine!";
+    if (newMode === "gk") msg = "Great! Let’s learn new facts! 🌍";
+    if (newMode === "fun") msg = "Yippee! Fun time! 🎮 Let’s enjoy!";
+
+    setReply(msg);
+
+    setSpeaking(true);
+
+    speak(msg, () => {
+      setSpeaking(false);
+    });
+  }
+
   // ================= HANDLE USER =================
   async function handleUser(text: string) {
     if (!text || !running || busyRef.current) return;
@@ -446,7 +475,6 @@ export default function Home() {
     try {
       setRunning(false);
 
-      // ✅ Add Mode in Prompt
       const finalText = `[Mode: ${mode}] ${text}`;
 
       const res = await getAIReply(finalText, getHistory());
@@ -501,6 +529,21 @@ export default function Home() {
       getAIReply("hello", []).catch(() => {});
     }
 
+    // Reminder if mode not selected
+    if (mode === "general") {
+      setTimeout(() => {
+        const remind = "Please choose a learning mode first! 🎨📚";
+
+        setReply(remind);
+
+        setSpeaking(true);
+
+        speak(remind, () => {
+          setSpeaking(false);
+        });
+      }, 1500);
+    }
+
     setTimeout(() => {
       setSpeaking(true);
 
@@ -551,12 +594,8 @@ export default function Home() {
   if (!session) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
-
         <div className="w-full max-w-md bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center space-y-6">
-
-          <h1 className="text-4xl font-bold text-white">
-            📝 EduBuddy
-          </h1>
+          <h1 className="text-4xl font-bold text-white">📝 EduBuddy</h1>
 
           <p className="text-white/80 text-sm">
             Your personal AI learning companion
@@ -579,7 +618,6 @@ export default function Home() {
           <div className="pt-3 flex justify-center">
             <LoginButton />
           </div>
-
         </div>
       </div>
     );
@@ -587,17 +625,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500">
-
       {/* HEADER */}
       <header className="sticky top-0 z-50 flex justify-between items-center py-4 px-6 text-white bg-white/10 backdrop-blur-md shadow">
-
-        <h1 className="text-xl sm:text-3xl font-extrabold text-white tracking-wide animate-bounce">
+        <h1 className="text-xl sm:text-3xl font-extrabold animate-bounce">
           📝EᵈUᵇᵘᴰᵈʸ
         </h1>
 
         {/* PROFILE */}
         <div ref={dropdownRef} className="relative">
-
           <button
             onClick={() => setDropdownOpen((p) => !p)}
             className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow"
@@ -620,7 +655,6 @@ export default function Home() {
 
           {dropdownOpen && (
             <div className="absolute right-0 mt-3 w-52 bg-white rounded-xl shadow-xl p-4">
-
               <p className="font-semibold text-gray-500 truncate">
                 {session.user?.name}
               </p>
@@ -637,24 +671,19 @@ export default function Home() {
               >
                 Logout
               </button>
-
             </div>
           )}
-
         </div>
-
       </header>
 
       {/* BODY */}
       <div className="flex max-w-6xl mx-auto mt-6 px-4 gap-5">
-
         {/* CHAT PANEL */}
         <aside
           className={`transition-all duration-300 ${
             showChat ? "w-72" : "w-12"
           } bg-white/20 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden`}
         >
-
           <button
             onClick={() => setShowChat(!showChat)}
             className="w-full py-2 bg-black/30 text-white"
@@ -664,7 +693,6 @@ export default function Home() {
 
           {showChat && (
             <div className="p-3 h-[480px] overflow-y-auto space-y-2">
-
               {chatList.map((m, i) => (
                 <div
                   key={i}
@@ -683,20 +711,15 @@ export default function Home() {
                   No chats yet
                 </p>
               )}
-
             </div>
           )}
-
         </aside>
 
         {/* MAIN */}
         <section className="flex-1">
-
-          {/* ✅ STORY / LEARNING SELECTOR */}
-          <StorySelector onSelect={(v) => setMode(v)} />
+          <StorySelector onSelect={handleModeChange} />
 
           <div className="bg-white/25 backdrop-blur-xl rounded-3xl shadow-2xl p-6 space-y-6">
-
             <TalkingCharacter speaking={speaking} />
 
             <EduBuddy
@@ -711,12 +734,9 @@ export default function Home() {
               active={running}
               onText={handleUser}
             />
-
           </div>
         </section>
       </div>
-
     </main>
   );
 }
-
