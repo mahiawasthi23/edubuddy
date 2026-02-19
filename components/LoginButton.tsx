@@ -11,7 +11,7 @@ export default function LoginButton() {
         <p className="text-gray-700">Signed in as {session.user?.email}</p>
         <button
           className="px-4 py-2 bg-red-500 text-white rounded"
-          onClick={() => signOut()}
+          onClick={() => signOut({ callbackUrl: "/" })}
         >
           Sign out
         </button>
@@ -21,7 +21,11 @@ export default function LoginButton() {
 
   return (
     <button
-      onClick={() => signIn("google")}
+      onClick={() =>
+        signIn("google", {
+          callbackUrl: "/welcome",
+        })
+      }
       className="
         flex items-center justify-center gap-3
         px-6 py-3
@@ -35,11 +39,7 @@ export default function LoginButton() {
         active:scale-95
       "
     >
-      {/* Google Icon */}
-      <svg
-        className="w-5 h-5"
-        viewBox="0 0 48 48"
-      >
+      <svg className="w-5 h-5" viewBox="0 0 48 48">
         <path
           fill="#EA4335"
           d="M24 9.5c3.54 0 6.71 1.23 9.21 3.64l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
