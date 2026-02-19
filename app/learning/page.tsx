@@ -9,6 +9,8 @@ import EduBuddy from "@/components/EduBuddy";
 import VoiceEngine from "@/components/VoiceEngine";
 import TalkingCharacter from "@/components/TalkingCharacter";
 import LoginButton from "@/components/LoginButton";
+import AnimatedBackground from "@/components/AnimatedBackground";
+
 
 import { getAIReply } from "@/lib/ai";
 import { addMessage, getHistory, clearHistory } from "@/lib/memory";
@@ -165,7 +167,7 @@ export default function LearningPage() {
 
   if (!session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-400 to-pink-300 px-4">
         <div className="text-center text-white space-y-6">
           <h1 className="text-4xl font-bold">📝 EduBuddy</h1>
           <p>Please login to continue</p>
@@ -176,7 +178,8 @@ export default function LearningPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500">
+    <main className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-400 to-pink-500">
+      <AnimatedBackground/>
 
       {/* HEADER */}
       <header className="sticky top-0 z-50 flex justify-between items-center py-4 px-6 text-white bg-white/10 backdrop-blur-md shadow">

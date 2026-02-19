@@ -24,3 +24,48 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Floating background items */
+.bubble {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2.8rem;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+  animation: floatUp linear infinite;
+  animation-delay: calc(-1s * var(--i));
+}
+
+
+.bubble-1  { left: 5%;  animation-duration: 22s; }
+.bubble-2  { left: 15%; animation-duration: 28s; font-size: 3.2rem; }
+.bubble-3  { left: 25%; animation-duration: 20s; }
+.bubble-4  { left: 35%; animation-duration: 32s; font-size: 3.4rem; }
+.bubble-5  { left: 45%; animation-duration: 18s; }
+
+.bubble-6  { left: 55%; animation-duration: 26s; font-size: 2.6rem; }
+.bubble-7  { left: 65%; animation-duration: 30s; }
+.bubble-8  { left: 75%; animation-duration: 24s; font-size: 3.2rem; }
+.bubble-9  { left: 85%; animation-duration: 19s; }
+.bubble-10 { left: 95%; animation-duration: 34s; font-size: 3.4rem; }
+
+.bubble-11 { left: 12%; animation-duration: 40s; }
+.bubble-12 { left: 32%; animation-duration: 36s; font-size: 2.6rem; }
+.bubble-13 { left: 52%; animation-duration: 44s; }
+.bubble-14 { left: 72%; animation-duration: 38s; font-size: 2.6rem; }
+.bubble-15 { left: 88%; animation-duration: 42s; }
+
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.6;
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}

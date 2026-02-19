@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import LoginButton from "@/components/LoginButton";
 import Image from "next/image";
+import AnimatedBackground from "@/components/AnimatedBackground";
+
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -25,7 +27,8 @@ export default function Home() {
   }
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-400 to-pink-500 px-4">
+        <AnimatedBackground/>
         <div className="w-full max-w-md bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center space-y-6">
           <h1 className="text-4xl font-bold text-white">📝 EduBuddy</h1>
 

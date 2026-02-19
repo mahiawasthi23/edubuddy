@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import TalkingCharacter from "@/components/TalkingCharacter";
 import { speak } from "@/components/Speaker";
+import AnimatedBackground from "@/components/AnimatedBackground";
+
 
 export default function WelcomePage() {
   const { data: session } = useSession();
@@ -29,7 +31,9 @@ export default function WelcomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex flex-col items-center justify-center text-white p-6 space-y-8">
+    <main className="relative min-h-screen bg-gradient-to-br from-indigo-500 via-purple-400 to-pink-500 flex flex-col items-center justify-center text-white p-6 space-y-8 overflow-hidden">
+      <AnimatedBackground/>
+      <div className="relative z-10 flex flex-col items-center space-y-8">
 
       <TalkingCharacter speaking={speaking} />
 
@@ -63,6 +67,7 @@ export default function WelcomePage() {
           🌈 Everything
         </button>
 
+      </div>
       </div>
     </main>
   );
